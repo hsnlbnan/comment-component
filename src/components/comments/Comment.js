@@ -3,6 +3,7 @@ import styles from "./comments.module.css";
 
 import Form from "../ui/form";
 import Card from "../ui/Card";
+import { motion } from "framer-motion";
 export const Comment = ({ commentsOpen }) => {
   const [comments, setComments] = React.useState([
     {
@@ -24,8 +25,7 @@ export const Comment = ({ commentsOpen }) => {
   ]);
 
   const commentHandler = (text, parentId) => {
-    // console.log("eeeee", text, parentId);
-    console.log("2322322", text, parentId);
+    console.log("", text, parentId);
     const newComment = {
       id: Math.floor(Math.random() * 1000),
       name: "Jane Doe",
@@ -77,16 +77,18 @@ export const Comment = ({ commentsOpen }) => {
             <h5>Comments ({comments.length})</h5>
           </div>
           <Form handleSubmit={commentHandler} />
-          {rootComment.map((comment) => (
-            <Card
-              key={comment.id}
-              comment={comment}
-              likeHandler={likeHandler}
-              dislikeHandler={dislikeHandler}
-              commentHandler={commentHandler}
-              childComment={childComment(comment.id)}
-            />
-          ))}
+          <motion.ul layout className={styles.commentWrapper}>
+            {rootComment.map((comment) => (
+              <Card
+                key={comment.id}
+                comment={comment}
+                likeHandler={likeHandler}
+                dislikeHandler={dislikeHandler}
+                commentHandler={commentHandler}
+                childComment={childComment(comment.id)}
+              />
+            ))}
+          </motion.ul>
         </div>
       </>
     )

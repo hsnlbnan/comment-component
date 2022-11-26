@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import React from "react";
+import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
 import { CgProfile } from "react-icons/cg";
 import { FcDislike, FcLike } from "react-icons/fc";
 import { VscReply } from "react-icons/vsc";
@@ -27,7 +28,7 @@ export const Card = ({
 
   return (
     <>
-      <div
+      <motion.div
         key={comment.id}
         className={classNames(styles.comment, className)}
         style={customStyle}
@@ -65,7 +66,7 @@ export const Card = ({
         </div>
 
         {replyOpen && <Form handleSubmit={(e) => commentHandler(e, replyId)} />}
-      </div>
+      </motion.div>
 
       {childComment &&
         childComment.length > 0 &&

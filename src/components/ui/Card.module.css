@@ -1,7 +1,7 @@
 .comment {
   display: flex;
   margin-bottom: 20px;
-  width: 100%;
+  width: -webkit-fill-available;
   border-bottom: 1px solid #eee;
   margin: 20px 0;
   padding-bottom: 20px;

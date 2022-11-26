@@ -16,7 +16,7 @@ export const Form = ({ handleSubmit }) => {
   };
 
   return (
-    <form className={styles.body} onSubmit={(e) => onSubmit(e)}>
+    <form className={styles.body} onSubmit={onSubmit}>
       <div className={styles.bodyHead}>
         <div className={styles.avatar}>
           <CgProfile />
