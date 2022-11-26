@@ -11,9 +11,11 @@ export const Card = ({
   comment,
   likeHandler,
   dislikeHandler,
-  replyHandler,
+  parentId = null,
   className,
-  subComment,
+  childComment,
+  commentHandler,
+  customStyle,
 }) => {
   const [replyOpen, setReplyOpen] = React.useState(false);
 
@@ -21,9 +23,15 @@ export const Card = ({
     setReplyOpen((prev) => !prev);
   };
 
+  const replyId = parentId ? parentId : comment.id;
+
   return (
     <>
-      <div key={comment.id} className={classNames(styles.comment, className)}>
+      <div
+        key={comment.id}
+        className={classNames(styles.comment, className)}
+        style={customStyle}
+      >
         <div>
           <div className={styles.commentTop}>
             <div className={styles.commentHead}>
@@ -34,39 +42,49 @@ export const Card = ({
             </div>
             <div className={styles.commentBody}>{comment.comment}</div>
           </div>
-          {!subComment && (
-            <div className={styles.commentFooter}>
-              <button
-                className={styles.btnLink}
-                onClick={() => likeHandler(comment.id)}
-              >
-                <FcLike />
-                <span>{comment.like}</span>
-              </button>
-              <button
-                className={styles.btnLink}
-                onClick={() => dislikeHandler(comment.id)}
-              >
-                <FcDislike />
-                <span> {comment.dislike}</span>
-              </button>
-              <button className={styles.btnLink} onClick={() => handleReply()}>
-                <VscReply />
-              </button>
-            </div>
-          )}
+
+          <div className={styles.commentFooter}>
+            <button
+              className={styles.btnLink}
+              onClick={() => likeHandler(comment.id)}
+            >
+              <FcLike />
+              <span>{comment.like}</span>
+            </button>
+            <button
+              className={styles.btnLink}
+              onClick={() => dislikeHandler(comment.id)}
+            >
+              <FcDislike />
+              <span> {comment.dislike}</span>
+            </button>
+            <button className={styles.btnLink} onClick={() => handleReply()}>
+              <VscReply />
+            </button>
+          </div>
         </div>
 
-        {replyOpen && <Form onSubmit={(e) => replyHandler(e, comment.id)} />}
+        {replyOpen && <Form handleSubmit={(e) => commentHandler(e, replyId)} />}
       </div>
 
-      {comment.comments &&
-        comment.comments.map((comment) => (
+      {childComment &&
+        childComment.length > 0 &&
+        childComment.map((c, i) => (
           <Card
-            key={comment.id}
-            comment={comment}
-            subComment={true}
+            key={Math.random(0, 100000)}
+            comment={
+              c.parentId === comment.id
+                ? c
+                : childComment.filter((c) => c.parentId === comment.id)
+            }
+            likeHandler={likeHandler}
+            dislikeHandler={dislikeHandler}
+            commentHandler={commentHandler}
             className={styles.subComment}
+            parentId={comment.id}
+            childComment={[]}
+            customStyle={{ marginLeft: (i + 1) * 20 }}
+            // childComment={childComment(c.id)}
           />
         ))}
     </>
