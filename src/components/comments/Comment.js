@@ -1,9 +1,6 @@
 import React from "react";
 import styles from "./comments.module.css";
-import { CgProfile } from "react-icons/cg";
-import { FcLike, FcDislike } from "react-icons/fc";
-import { VscReply } from "react-icons/vsc";
-import cn from "classnames";
+
 import Form from "../ui/form";
 import Card from "../ui/Card";
 export const Comment = ({ commentsOpen }) => {

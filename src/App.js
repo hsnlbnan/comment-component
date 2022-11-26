@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Comment from "./components/comments/Comment";
 import Review from "./components/review/Review";
