@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React from "react";
-import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { CgProfile } from "react-icons/cg";
 import { FcDislike, FcLike } from "react-icons/fc";
 import { VscReply } from "react-icons/vsc";
